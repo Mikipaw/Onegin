@@ -1,7 +1,6 @@
 //
 // Created by pawlo on 20.09.2020.
 //
-#pragma once
 #ifndef ONEGIN_MYSTR_H
 #define ONEGIN_MYSTR_H
 
