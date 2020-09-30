@@ -68,4 +68,3 @@ void strcmp_Test() {
 
 
 #endif //ONEGIN_TESTS_H
-
