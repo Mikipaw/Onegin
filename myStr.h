@@ -1,7 +1,6 @@
 //
 // Created by mikipaw on 20.09.2020.
 //
-#pragma once
 #ifndef ONEGIN_MYSTR_H
 #define ONEGIN_MYSTR_H
 
@@ -10,6 +9,8 @@
 
 //#include <cstring>
 #include <cctype>
+#include <cstdio>
+#include <cstdlib>
 
 /*!
  *  \struct simple_string
@@ -64,102 +65,24 @@ int str_cmp_4_sort_from_end(const simple_string& str1, const simple_string& str2
 */
 void quick_sort_strings(simple_string* array, int left, int right, const char* order = "FROM BEGIN");
 
-
-simple_string& operator<<(simple_string& sstr, const char* str){
-    char c = 1;
-    int size = 0;
-    while(c != '\0'){
-        c = str[size++];
-    }
-    sstr.string = (char*) calloc(size, sizeof(char));
-    sstr.string = (char*) str;
-    sstr.size = size;
-    return sstr;
-}
-
-int simple_string_comparator(const simple_string& string1, const simple_string& string2){
-    return str_cmp_4_sort(string1.string, string2.string);
-}
-
-void quick_sort_strings(simple_string* array, int left, int right, const char* order){
-    simple_string tmp = array[left];
-    int l_hold = left, r_hold = right, mdl = 0;
-    while(left < right){
-        if(str_cmp(order, "FROM END")){
-            while((str_cmp_4_sort_from_end(array[right], tmp) >= 0) && (left < right)) right--;
-            if(left != right) array[left++] = array[right];
-            while((str_cmp_4_sort_from_end(array[left], tmp) <= 0) && (left < right)) left++;
-            if(left != right) array[right--] = array[left];
-        }
-        else{
-            while((str_cmp_4_sort(array[right].string, tmp.string) >= 0) && (left < right)) right--;
-            if(left != right) array[left++] = array[right];
-            while((str_cmp_4_sort(array[left].string, tmp.string) <= 0) && (left < right)) left++;
-            if(left != right) array[right--] = array[left];
-        }
-
-    }
-    array[left] = tmp;
-    mdl = left;
-    left = l_hold;
-    right = r_hold;
-    if(left < mdl)  quick_sort_strings(array, left, mdl - 1, order);
-    if(right > mdl) quick_sort_strings(array, mdl + 1, right, order);
-}
-
-int str_cmp_4_sort_from_end(const simple_string& str1, const simple_string& str2){
-    int i = str1.size, j = str2.size;
-    if(i == 0 || j == 0) return i - j;
-    i--;
-    j--;
-
-    while(i >= 0 && j >= 0){
-        while(!(isalpha(str1.string[i]))) i--;
-        while(!(isalpha(str2.string[j]))) j--;
-
-        if     (i < 0 && j < 0) return 0;
-        else if(i < 0 || j < 0) return i - j;
-
-        while(str1.string[i] == str2.string[j] && i > 0 && j > 0){
-            i--;
-            j--;
-        }
-        return str1.string[i] - str2.string[j];
-    }
-    return 0;
-}
+/*!
+*  \function void Print_In_File(simple_string* array, FILE* result_file);
+*  \brief Function prints the array of strings in file
+*  \param array a char** - array of strings
+*  \param result_file a FILE*
+*  \return nothing
+*/
+void Print_In_File(simple_string* pointers, FILE* result_file, int number_of_lines, int number_of_empty_lines = 0);
 
 
-int str_cmp_4_sort(const char* str1, const char* str2){
-    int i = 0, j = 0;
-    while(TRUE){
-        while(!(isalpha(str1[i]) || str1[i] == '\0')) i++;
-        while(!(isalpha(str2[j]) || str2[j] == '\0')) j++;
+/*!
+*  \function size_t Size_of_file(FILE* name_of_file);
+*  \brief Function finds size of file
+*  \param name_of_file - a FILE*
+*  \return size_t - number of chars
+*/
+size_t Size_of_file(FILE* name_of_file);
 
-        if(str1[i] == '\0' &&
-            str2[j] == '\0') return 0;
-
-        if(str1[i] == str2[j]){
-            i++;
-            j++;
-        }
-        else return str1[i] - str2[j];
-    }
-}
-
-
-int str_cmp(const char* str1, const char* str2){
-    int i = 0;
-    while(TRUE){
-        if(str1[i] == '\0' && str2[i] == '\0') return TRUE;
-        if(str1[i] == str2[i]){
-            ++i;
-            continue;
-        }
-        return FALSE;
-    }
-}
-
-
+simple_string& operator<<(simple_string& sstr, const char* str);
 
 #endif //ONEGIN_MYSTR_H
