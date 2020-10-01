@@ -57,7 +57,7 @@ char* text_from_file(FILE* file_name, size_t size_of_file, size_t* number_of_lin
 void Interface() {
 
     //Program opens the file "Romeo and Juliet"
-    FILE* original_text = fopen("C://Programming/projects/Onegin/Test.txt", "rb");
+    FILE* original_text = fopen("C://Programming/projects/Onegin/RaJ.txt", "rb");
     FILE* result_file = fopen("C://Programming/projects/Onegin/Result.txt", "wb");
 
     if (original_text == nullptr || result_file == nullptr) {
@@ -75,21 +75,12 @@ void Interface() {
     printf("Number of lines in input text - %d\n", number_of_lines);
 
     simple_string *pointers = (simple_string *) calloc(number_of_lines + 1, sizeof(simple_string));
-
     pointers[0].string = text;
 
     int number_of_empty_lines = 0;
 
-    char* ptr = text;
-    for (int i = 1; i < number_of_lines; ++i) {
-        ptr = strchr(ptr, '\0');
-        ptr++;
-        pointers[i].string = ptr;
-        pointers[i-1].size = (int) (pointers[i].string - pointers[i-1].string);
-        if (pointers[i-1].string[0] == '\n')
-            number_of_empty_lines++;
-    }
-    pointers[number_of_lines-1].size = (int) (pointers[number_of_lines].string - pointers[number_of_lines-1].string);
+    number_of_empty_lines = Arrange_str_ptrs(pointers, number_of_lines, text);
+    //pointers[number_of_lines-1].size = (int) (pointers[number_of_lines].string - pointers[number_of_lines-1].string);
 
     //Program prints sorted text in the file
     quick_sort_strings(pointers, 0, number_of_lines - 1);
@@ -109,12 +100,11 @@ void Interface() {
     fclose(original_text);
     fclose(result_file);
 
-    for (int o = 0; o < number_of_lines; ++o) {
-        free(pointers[o].string);
+    for (int i = 0; i < number_of_lines; ++i) {
+        free(pointers[i].string);
     }
 
     free(pointers);
     free(text);
-    free(ptr);
 }
 
