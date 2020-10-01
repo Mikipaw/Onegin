@@ -117,3 +117,21 @@ simple_string &operator<<(simple_string &sstr, const char *str) {
     sstr.size = size;
     return sstr;
 }
+
+
+int Arrange_str_ptrs(simple_string* pointers, const size_t number_of_lines, char* text) {
+    assert(pointers != nullptr);
+    assert(text != nullptr);
+    int number_of_empty_lines = 0;
+    //char *ptr = text;
+    for (int i = 1; i < number_of_lines; ++i) {
+        text = strchr(text, '\0');
+        text++;
+        pointers[i].string = text;
+        pointers[i - 1].size = (int) (pointers[i].string - pointers[i - 1].string);
+        if (pointers[i - 1].string[0] == '\n')
+            number_of_empty_lines++;
+    }
+
+    return number_of_empty_lines;
+}
