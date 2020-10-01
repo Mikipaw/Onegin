@@ -83,6 +83,16 @@ void Print_In_File(simple_string* pointers, FILE* result_file, int number_of_lin
 */
 size_t Size_of_file(FILE* name_of_file);
 
+/*!
+*  \function int Arrange_str_ptrs(simple_string* pointers, size_t number_of_lines, char* text);
+*  \brief Function fills the array and count number of empty lines.
+*  \param pointers a simple_string*
+*  \param number_of_lines a size_t
+*  \param text a char*
+*  \return int - number of empty strings
+*/
+int Arrange_str_ptrs(simple_string* pointers, size_t number_of_lines, char* text);
+
 simple_string& operator<<(simple_string& sstr, const char* str);
 
 #endif //ONEGIN_MYSTR_H
