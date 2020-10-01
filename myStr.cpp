@@ -119,7 +119,7 @@ simple_string &operator<<(simple_string &sstr, const char *str) {
 }
 
 
-int Arrange_str_ptrs(simple_string* pointers, const size_t number_of_lines, char* text) {
+int Arrange_str_ptrs(simple_string* pointers, size_t number_of_lines, char* text) {
     assert(pointers != nullptr);
     assert(text != nullptr);
     int number_of_empty_lines = 0;
