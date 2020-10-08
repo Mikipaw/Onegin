@@ -57,8 +57,8 @@ char* text_from_file(FILE* file_name, size_t size_of_file, size_t* number_of_lin
 void Interface() {
 
     //Program opens the file "Romeo and Juliet"
-    FILE* original_text = fopen("C://Programming/projects/Onegin/RaJ.txt", "rb");
-    FILE* result_file = fopen("C://Programming/projects/Onegin/Result.txt", "wb");
+    FILE* original_text = fopen("RaJ.txt"   , "rb");
+    FILE* result_file   = fopen("Result.txt", "wb");
 
     if (original_text == nullptr || result_file == nullptr) {
         fprintf(stderr, "Error opening file!\n");
@@ -99,11 +99,7 @@ void Interface() {
     //Closing files and free the memory
     fclose(original_text);
     fclose(result_file);
-
-    for (int i = 0; i < number_of_lines; ++i) {
-        free(pointers[i].string);
-    }
-
+    
     free(pointers);
     free(text);
 }
